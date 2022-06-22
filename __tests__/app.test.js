@@ -70,4 +70,15 @@ describe('backend-express-template routes', () => {
     });
   });
 
+
+  it('should return a 403 when signed in but not admin and listing all users', async () => {
+    const [agent] = await registerAndLogin();
+    const res = await agent.get('/api/v1/users');
+
+    expect(res.body).toEqual({
+      message: 'Access denied',
+      status: 403,
+    });
+  });
+
 });
