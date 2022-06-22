@@ -40,13 +40,25 @@ describe('backend-express-template routes', () => {
   it('creates a new user', async () => {
     const res = await request(app).post('/api/v1/users').send(demoUser);
     const { firstName, lastName, email } = demoUser;
-    console.log(demoUser, 'demoUser');
 
     expect(res.body).toEqual({
       id: expect.any(String),
       firstName,
       lastName,
       email,
+    });
+  });
+
+  it('returns the current user', async () => {
+    const [agent, user] = await registerAndLogin();
+    const me = await agent.get('/api/v1/users/me');
+
+    console.log('me', me);
+
+    expect(me.body).toEqual({
+      ...user,
+      exp: expect.any(Number),
+      iat: expect.any(Number),
     });
   });
 
