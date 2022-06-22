@@ -40,6 +40,7 @@ describe('backend-express-template routes', () => {
   it('creates a new user', async () => {
     const res = await request(app).post('/api/v1/users').send(demoUser);
     const { firstName, lastName, email } = demoUser;
+    console.log(demoUser, 'demoUser');
 
     expect(res.body).toEqual({
       id: expect.any(String),
@@ -48,6 +49,5 @@ describe('backend-express-template routes', () => {
       email,
     });
   });
-
 
 });
