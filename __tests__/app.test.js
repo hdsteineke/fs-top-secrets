@@ -89,4 +89,18 @@ describe('backend-express-template routes', () => {
     expect(res.body).toEqual([{ ...user}]);
   });
 
+  it('should logout a user', async () => {
+    const res = await request(app).delete('/api/v1/users/sessions');
+
+    expect(res.status).toEqual(200);
+    expect(res.body.message).toEqual('Signed out successfully');
+  });
+
+  it('should return a list of secrets to authenticated users', async () => {
+    
+    const res = await request(app).get('/api/vi/secrets');
+    console.log('res.body', res.body);
+    expect(res.body.length).toEqual(3);
+  });
+
 });
