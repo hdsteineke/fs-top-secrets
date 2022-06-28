@@ -97,9 +97,8 @@ describe('backend-express-template routes', () => {
   });
 
   it('should return a list of secrets to authenticated users', async () => {
-    
-    const res = await request(app).get('/api/vi/secrets');
-    console.log('res.body', res.body);
+    const [agent] = await registerAndLogin();
+    const res = await agent.get('/api/v1/secrets');
     expect(res.body.length).toEqual(3);
   });
 
